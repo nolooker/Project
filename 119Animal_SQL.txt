@@ -1,0 +1,303 @@
+-- 회원 테이블 생성(members)
+create table members(
+    id varchar2(30) primary key,
+    name varchar2(50) not null,
+    password varchar2(50),
+    gender varchar2(10),
+    hobby varchar2(255),
+    hiredate date default sysdate,	
+    mpoint number default 0,
+    remark varchar2(255) default ' '  
+);
+insert into members values('admin', '관리자', '1234', '남자', null, sysdate, 0, null);
+insert into members values('hong', '홍길동', '1234', '남자', null, sysdate, 0, null);
+insert into members values('park', '박영희', '1234', '여자', null, sysdate, 0, null);
+
+
+commit;
+
+-----------------------------------------------------------------------------------------
+
+-- boards 테이블
+create sequence myboard start with 1 increment by 1 nocache;
+drop sequence myboard;
+
+create table boards(
+    no number primary key,
+    category varchar2(50),
+    writer varchar2(50),
+    subject varchar2(100) not null,    
+    content varchar2(3000),    
+    regdate date default sysdate,
+    readhit number default 0,
+    groupno number default 0,
+    orderno number default 0,
+    depth number default 0,
+    image01 varchar2(50),
+    image02 varchar2(50),
+    image03 varchar2(50)
+);
+
+commit ;
+
+select * from notices;
+
+-- alter table boards
+-- add constraint boards_writer_fk
+-- foreign key(writer) references users(id)
+-- on delete set null ;
+
+insert into boards values (myboard.nextval, '근황/후기', 'come', '우리 애 찾았어요ㅠㅠ', '온 동네를 헤집고 다닌지 어언 이틀... 드디어 내새끼를 찾았습니다 일단 좀 씻자', '2022/01/01', 0, myboard.currval, null, null, '꼬질꼬질.jpg'); 
+insert into boards values (myboard.nextval, '자유게시판', 'corgi', '코기 궁둥이도 못 본 것들이', '웰시 코기는 요정이 타고다닌다는 웨일스 귀염둥이다', '2022/04/05', 0, myboard.currval, null, null, '백호.jpg');
+insert into boards values (myboard.nextval, '자유게시판', 'maltese', '말티즈 참아 아니 참지마', '무슨 소리야 말티즈가 짱이야 참지 않는 것까지 귀여워', '2022/07/07', 0, myboard.currval, null, null, '재롱이.jpg'); 
+insert into boards values (myboard.nextval, '자유게시판', 'Yorkshire', '그만해 이것들아 다 귀여워', '멍냥이는 원래 다 진리고 내 개가 최고다 요크셔 사랑해', '2022/09/15', 0, myboard.currval, null, null, null); 
+insert into boards values (myboard.nextval, '자유게시판', 'collie', '콜리보다 멍청하긴 근데 그게 나야', '보더 콜리 나보다 똑똑한데 나보다 운동량 많음 그리고 귀여움', '2022/10/11', 0, myboard.currval, null, null, '페퍼.jpg');
+insert into boards values (myboard.nextval, '근황/후기', 'hw999', '우리 딱지 드디어 찾았어요!!', '잃어버린 지 5일만에 드디어 찾았습니다... 내장형 인식칩을 하고 있던 덕분에 우연히 딱지를 발견하신 분이 동물병원에서 인식칩 확인하시고 연락 주셨더라구요. 인식칩 아니었으면 아마 못 찾았을 거예요. 딱지를 찾고보니 목에 걸고있던 인식표는 끊어져서 없어져있었어요. 다들 인식칩 꼭 하세요...', '2022/12/20', 0, myboard.currval, null, null, '딱지.jpg');
+insert into boards values (myboard.nextval, '근황/후기', 'latte', '안녕하세요. 라떼 입양자입니다. :)', '오늘자 라떼 사진입니다!! 라떼가 나이도 있고 마음에 상처가 많은 것 같아서 걱정을 했는데, 제가 원래 키우고 있던 강아지가 사교성이 아주 좋은 편이라 적응하는데 도움이 많이 된 것 같아요. 라떼를 보호소에서 데려왔다고 하면 주변에서 놀라더라구요. 너무 밝아서 상처가 있던 아이인지 전혀 모르겠다고 하면서... 그 말을 들으니 뭔가 책임감이 더 생기는 느낌이었어요. 끝까지 잘 돌봐주고 마지막까지 행복하게 지낼 수 있도록 해줘야겠단 생각이 들었네요.', '2023/01/22', 0, myboard.currval, null, null, '라떼.jpg');
+insert into boards values (myboard.nextval, '근황/후기', 'congal', '지난 달에 보호소에서 입양한 콩이예요~!', '너무 귀엽죠. ㅋㅋ 처음에 집에 왔을 때는  엄청 낯설어하길래 마냥 소심한 앤 줄 알았는데 편해지니까 애교도 많고 장난도 잘 치더라구요. 요즘에 콩이 보려고 외출했다가도 엄청 빨리 들어와요. 지금은 사랑 많이 받고 아주 잘 지내고 있습니다. 입양하는 데 도움주신 보호소 관계자 분들께 감사드려요.', '2023/02/05', 0, myboard.currval, null, null, '콩이.jpg');
+insert into boards values (myboard.nextval, '근황/후기', 'back', '어느 날 천사가 우리 집에 들어왔다', '열흘 전 입양한 우리 집 막내입니다 벌써 적응 다 했네요ㅋㅋ', '2023/02/06', 0, myboard.currval, null, null, '댕댕이.jpg');
+insert into boards values (myboard.nextval, '자유게시판', 'khy123', '떠돌이 강아지들에 대해서...', '동네에 떠돌이 강아지들이 요즘 부쩍 많아졌습니다. 떠돌이 강아지라고 하면 보통 유기되었을 확률이 높겠죠...? 저희 집이 좀 한적한 동네인데 여기까지 와서 버리고 가는 건지, 아니면 아이들이 떠돌다가 조용한 곳으로 들어오게 된 건지는 모르겠네요. 보이는대로 최대한 먹을 거리라도 챙겨주려고 하는데 거리 생활이 오래되어 보이는 아이들은 사람 손을 절대 안 타려고 해요. 볼 때마다 안타깝네요.', '2023/02/15', 0, myboard.currval, null, null, null);
+insert into boards values (myboard.nextval, '자유게시판', 'sarang', '안녕하세요. 혹시 같은 날 자원봉사 하실 분 계신가요?', '혹시 같은 날 자원봉사 하실 분 계신가요? 제가 다음주 쯤 보호소 자원봉사를 하려고 합니다. 이번에 처음 하는 거라서 같이 하면 어떨까 싶은데 다음주 중 시간 괜찮으신 분 계시면 답글 부탁드릴게요!', '2023/02/27', 0, myboard.currval, null, null, null);
+insert into boards values (myboard.nextval, '자유게시판', 'yoona', '입양 예정인 강아지 임시보호자 찾습니다.', '입양처는 확정되어있구요. 다음 달 초에 데려가시기로 했습니다. 지금은 제가 임시보호 중인데 제가 한달간 해외근무로 집을 비우게 되어서 입양날까지 임시보호를 하기 어렵게 되었습니다. 입양 전까지만 임시보호 가능하신 분 계시면 답글 부탁드릴게요. 임시보호처가 서울/경기에 있으면 제가 근처로 직접 데리고 갈 수 있습니다. 답글 주시면 따로 연락처 남기겠습니다.', '2023/03/01', 0, myboard.currval, null, null, null);
+insert into boards values (myboard.nextval, '자유게시판', 'planet', '탄원해주세요', '개농장에서 버려진 아이를 구한 구조자를 해당 번식업자가 고소했습니다', '2023/03/06', 0, myboard.currval, null, null, null);
+
+commit;
+
+
+-- categories 테이블
+create table categories(
+	catename varchar2(50) primary key
+	
+);
+
+insert into categories values('근황/후기');
+insert into categories values('자유게시판');
+insert into categories values('공지사항');
+insert into categories values('자원봉사모집');
+
+commit;
+
+-- notices 테이블
+create table notices(  -- 공지사항/자원봉사 모집
+    no number primary key,
+    category varchar2(50),
+    writer varchar2(50),
+    subject varchar2(100) not null,    
+    content varchar2(3000),    
+    regdate date default sysdate,
+    readhit number default 0,
+    groupno number default 0,
+    orderno number default 0,
+    depth number default 0,
+    image01 varchar2(50)
+   
+);
+
+commit ;
+
+
+select * from supports;
+create sequence mynotice start with 1 increment by 1 nocache;
+
+insert into notices values (mynotice.nextval, '봉사자 모집', 'hayan', '119 보호소 자원봉사자 모집', '119 보호소 자원봉사자 모집합니다.', '2022/02/20', 0, mynotice.currval, null, null, null);
+insert into notices values (mynotice.nextval, '공지사항', 'hayan', '119 보호소 직원 채용 안내', '119 보호소와 함께 걸어갈 분을 구합니다.', '2022/06/11', 0, mynotice.currval, null, null, '119애니멀.jpg');
+insert into notices values (mynotice.nextval, '공지사항', 'hayan', '2022년 상반기 기부금품 사용내역 보고', '2022년 상반기 기부금품 사용내역입니다 감사합니다.', '2022/06/30', 0, mynotice.currval, null, null, null);
+insert into notices values (mynotice.nextval, '봉사자 모집', 'hayan', '행복 보호소 자원 봉사자 모집', '행복 보호소 자원봉사자 모집합니다', '2022/10/17', 0, mynotice.currval, null, null, null);
+insert into notices values (mynotice.nextval, '봉사자 모집', 'hayan', '119 보호소 자원봉사자 모집', '119 보호소 자원봉사자 모집합니다.', '2022/11/11', 0, mynotice.currval, null, null, null);
+insert into notices values (mynotice.nextval, '공지사항', 'hayan', '2022년 하반기 기부금품 사용내역 보고', '2022년 하반기 기부금품 사용내역입니다 감사합니다.', '2022/11/28', 0, mynotice.currval, null, null, null);
+insert into notices values (mynotice.nextval, '공지사항', 'hayan', '사단법인 119애니멀 임시총회 공고', '일정은 미정입니다만 참여바랍니다.', '2022/12/08', 0, mynotice.currval, null, null, null);
+insert into notices values (mynotice.nextval, '공지사항', 'hayan', '2022년 119애니멀 활동 보고', '따뜻한 관심에 감사드립니다', '2022/12/12', 0, mynotice.currval, null, null, '119애니멀.jpg');   
+insert into notices values (mynotice.nextval, '공지사항', 'hayan', '보호소 후원 계좌 변경 안내', '안녕하세요. 119animal 입니다. :) 보호소 후원 계좌가 아래와 같이 변경되어 안내 드립니다. [기존] 233002-04-257029/국민/일일구애니멀 -> [변경] 233001-04-257033/국민/일일구애니멀
+보호소 이용자 분들의 후원에 항상 감사드리며 앞으로도 돌봄이 필요한 동물들을 위해서 적극적으로 지원할 수 있도록 노력하겠습니다. 감사합니다.', '2022/12/31', 0, mynotice.currval, null, null, null); 
+insert into notices values (mynotice.nextval, '공지사항', 'hayan', '연계 동물병원 안내', '안녕하세요. 119animal 입니다. :) 저희 보호소와 연계되어 있는 동물병원 위치와 연락처 안내 드립니다. 혹시 주변에서 유기 동물을 발견하시는 경우 가까운 동물병원에 맡겨주시면 저희가 신속히 조치를 취할 수 있도록 하겠습니다. 감사합니다.', 
+'2023/01/02', 0, mynotice.currval, null, null, '연계동물병원.jpg'); 
+insert into notices values (mynotice.nextval, '공지사항', 'hayan', '주차시설 정비 안내', '안녕하세요. 119animal 입니다. :) 3/3~3/4 (총 2일) 동안 보호소 주차시설 정비가 있을 예정입니다. 해당 기간 동안 보호소를 내방하시는 경우 번거로우시더라도 보호소 근처의 공영주차장을 이용해주시면 감사하겠습니다. 감사합니다.', '2023/01/03', 0, mynotice.currval, null, null, null); 
+insert into notices values (mynotice.nextval, '봉사자 모집', 'hayan', '2023/01/28 자원봉사자 모집 안내', '안녕하세요. 119animal 입니다. :) 2023년 01월 28일 오전에 보호소 자원봉사 진행 예정입니다. 지원 가능하신 분께서는 아래 신청 폼을 통하여 지원 부탁드립니다. 자세한 사항은 신청 내역 확인 후 개별 문자 안내 드리겠습니다.', '2023/01/23', 0, mynotice.currval, null, null, null); 
+insert into notices values (mynotice.nextval, '봉사자 모집', 'hayan', '2023/02/02 자원봉사자 모집 안내', '안녕하세요. 119animal 입니다. :) 2023년 02월 02일 오전에 보호소 자원봉사 진행 예정입니다. 지원 가능하신 분께서는 아래 신청 폼을 통하여 지원 부탁드립니다. 자세한 사항은 신청 내역 확인 후 개별 문자 안내 드리겠습니다.', '2023/01/28', 0, mynotice.currval, null, null, null); 
+insert into notices values (mynotice.nextval, '봉사자 모집', 'hayan', '2023/02/25 자원봉사자 모집 안내', '안녕하세요. 119animal 입니다. :) 2023년 02월 25일 오전에 보호소 자원봉사 진행 예정입니다. 지원 가능하신 분께서는 아래 신청 폼을 통하여 지원 부탁드립니다. 자세한 사항은 신청 내역 확인 후 개별 문자 안내 드리겠습니다.', '2023/02/20', 0, mynotice.currval, null, null, null); 
+
+commit;
+
+
+--animals 테이블
+create sequence myanimals start with 1 increment by 1 nocache ;
+
+create table animals(
+    num number primary key,
+    type varchar2(50),
+    kind varchar2(50) not null,
+    gender varchar2(50),    
+    image01 varchar2(50) not null,
+   image02 varchar2(50),
+   image03 varchar2(50),
+    remark varchar2(255),
+    finddate date default sysdate
+);
+
+select * from user_sequences ;
+
+create sequence myanimal 
+start with 1
+increment by 1
+maxvalue 99999999
+nocycle
+nocache
+noorder;
+
+
+insert into animals(num, type, kind, gender, image01, image02, image03, remark, finddate)
+values(myanimal.nextval, '강아지', '삽살개', '수컷', '삽살개1.jpg', '삽살개2.jpg', null, '사나움' , sysdate );
+
+insert into animals(num, type, kind, gender, image01, image02, image03, remark, finddate)
+values(myanimal.nextval, '강아지', '시츄', '암컷', '시츄1.jpg', '시츄2.jpg', null, '예민함' , sysdate );
+
+insert into animals(num, type, kind, gender, image01, image02, image03, remark, finddate)
+values(myanimal.nextval, '강아지', '포메라이언', '수컷', '포메라이언1.jpg', '포메라이언2.jpg', null, '착함' , sysdate );
+
+insert into animals(num, type, kind, gender, image01, image02, image03, remark, finddate)
+values(myanimal.nextval, '강아지', '삽살개', '수컷', '삽살개1.jpg', '삽살개2.jpg', null, '사나움' , sysdate );
+
+insert into animals(num, type, kind, gender, image01, image02, image03, remark, finddate)
+values(myanimal.nextval, '고양이', '랙돌', '암컷', '랙돌01.jpg', '랙돌02.jpg', null, '사나움' , sysdate );
+
+insert into animals(num, type, kind, gender, image01, image02, image03, remark, finddate)
+values(myanimal.nextval, '고양이', '먼치킨', '암컷', '먼치킨01.jpg', '먼치킨02.jpg', null, '사나움' , sysdate );
+
+commit ;
+
+create table category01(
+    engname varchar2(50) primary key,
+   kornaame varchar2(50)
+);
+insert into category01 values('dogs', '강아지');
+insert into category01 values('cats', '고양이');
+
+select * from category01;
+
+commit;
+
+drop table animals purge;
+
+create table animals(
+    num number primary key,
+    name varchar2(30),
+    type varchar2(30) not null,
+    kind varchar2(50),    
+    anigender varchar2(50),    
+    	image01 varchar2(50) not null,
+	image02 varchar2(50),
+	image03 varchar2(50),
+    remark varchar2(255),
+    category varchar2(255),        
+    inputdate date default sysdate
+);
+
+select * from tab ;
+
+--자유게시판 댓글 테이블
+create sequence mycomment start with 1 increment by 1 nocache ; 
+
+create table comments(
+   cnum number primary key,
+   no number,
+   writer varchar2(255),
+   content varchar2(255),   
+   regdate date default sysdate 
+);
+
+--공지사항 댓글 테이블
+create sequence mynocomment start with 1 increment by 1 nocache ; 
+
+create table nocomments(
+   cnum number primary key,
+   no number,
+   writer varchar2(255),
+   content varchar2(255),   
+   regdate date default sysdate 
+);
+
+--봉사 신청 테이블
+create sequence mysupport start with 1 increment by 1 nocache;
+
+create table supports(
+no number primary key, --게시글 번호
+writer varchar2(50), --작성자
+subject varchar2(200) not null, --제목
+phone varchar2(50), --신청자 전화번호
+content varchar2(3000), --글내용
+hopeday date, --희망하는 봉사날
+regdate date default sysdate, --글 등록일
+groupno number default 0,
+orderno number default 0 
+
+);
+
+commit;
+
+create table products(
+    num number primary key,
+    name varchar2(50),
+    company varchar2(50) not null,
+    comments varchar2(50),    
+    image01 varchar2(50) not null,
+	image02 varchar2(50),
+	image03 varchar2(50),
+    stock number default 0,
+    price number default 0,
+    point number default 0,
+    remark varchar2(255),
+    category varchar2(255),        
+    inputdate date default sysdate
+);
+
+create sequence myproduct start with 10 increment by 1 nocache;
+
+create table orders(
+  oid number primary key,
+  mid varchar2(10) references members(id) on delete set null,
+  orderdate date default sysdate 
+);
+
+create table orderdetails(
+  odid number primary key,
+  oid number references orders(oid) on delete cascade,
+  pnum number references products(num) on delete set null,
+  qty number
+);
+
+
+create table ShoppingBaskets(
+    mid varchar2(30),
+    pnum number default 0,
+    qty number default 0
+);
+
+create table animals(
+    num number primary key,
+    name varchar2(30),
+    type varchar2(30) not null,
+    kind varchar2(50),    
+    anigender varchar2(50),    
+    	image01 varchar2(50) not null,
+	image02 varchar2(50),
+	image03 varchar2(50),
+    remark varchar2(255),
+    category varchar2(255),        
+    inputdate date default sysdate
+);
+
+create sequence myanimal start with 10 increment by 1 nocache;
+
+insert into animals values(myanimal.nextval, '흰둥이', '강아지', '몰티즈', '암컷', '몰티즈1.jpg', null, null, '예방접종함', '양호', '12/08/15');
+
+insert into animals values(myanimal.nextval, '뚱이', '고양이', '스코티시폴드', '암컷', '스코티시폴드01.jpg', '스코티시폴드02.jpg', null, '예방접종함', '양호', '10/07/15');
+
+insert into animals values(myanimal.nextval, '기쁨이', '강아지', '스피츠', '수컷', '스피츠1.jpg', null, null, '경기도 안산시에서 발견', '나쁨' ,'20/10/30');
+
+insert into animals values(myanimal.nextval, '소망이', '고양이', '아메리칸쇼트헤어', '수컷', '아메리칸쇼트헤어01.jpg', null, null, '예방접종불가', '나쁨', '15/03/01');
+
+insert into animals values(myanimal.nextval, '믿음이', '강아지', '포메라이언','암컷', '포메라이언1.jpg', '포메라이언2.jpg', null, '피부질환있음', '보통', '17/10/10');
+
+insert into animals values(myanimal.nextval, '사랑이', '고양이','코리안쇼트헤어', '수컷', '코리안쇼트헤어01.jpg', '코리안쇼트헤어01.jpg', null,  '피부질환있음', '보통', '12/08/15');
+
+
